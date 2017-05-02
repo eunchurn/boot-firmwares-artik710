@@ -29,6 +29,7 @@ parse_options()
 parse_options "$@"
 
 CHECK_FIP=`cat $OUTPUT_DIR/partmap_emmc.txt | grep "fip-secure"`
+CHECK_OTA=`cat $OUTPUT_DIR/partmap_emmc.txt | grep "flag"`
 
 if [ "$CHECK_FIP" != "" ];then
 	ARTIK710=true
@@ -39,12 +40,19 @@ fi
 echo "Fusing bootloader binaries..."
 sudo fastboot flash partmap $OUTPUT_DIR/partmap_emmc.txt
 sudo fastboot flash 2ndboot $OUTPUT_DIR/bl1-emmcboot.img
+
+if [ "$CHECK_OTA" != "" ]; then
+	sudo fastboot flash flags $OUTPUT_DIR/flag.img
+fi
+
 if $ARTIK710; then
 	sudo fastboot flash fip-loader $OUTPUT_DIR/fip-loader-emmc.img
 	sudo fastboot flash fip-secure $OUTPUT_DIR/fip-secure.img
 	sudo fastboot flash fip-nonsecure $OUTPUT_DIR/fip-nonsecure.img
 else
-	sudo fastboot flash bootloader $OUTPUT_DIR/singleimage-emmcboot.bin
+	sudo fastboot flash loader $OUTPUT_DIR/loader-emmc.img
+	sudo fastboot flash blmon $OUTPUT_DIR/bl_mon.img
+	sudo fastboot flash bootloader $OUTPUT_DIR/bootloader.img
 fi
 
 echo "Fusing boot image..."
