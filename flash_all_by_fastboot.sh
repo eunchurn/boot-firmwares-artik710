@@ -52,6 +52,7 @@ if $ARTIK710; then
 else
 	sudo fastboot flash loader $OUTPUT_DIR/loader-emmc.img
 	sudo fastboot flash blmon $OUTPUT_DIR/bl_mon.img
+	sudo fastboot flash secure $OUTPUT_DIR/secureos.img
 	sudo fastboot flash bootloader $OUTPUT_DIR/bootloader.img
 fi
 
