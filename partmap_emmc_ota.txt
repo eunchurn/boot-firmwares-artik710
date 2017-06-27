@@ -7,5 +7,5 @@ flash=mmc,0:flag:ext4:0x400000,0x20000:flag.img;
 flash=mmc,0:boot:ext4:0x800000,0x2000000:boot.img;
 flash=mmc,0:boot_ota:ext4:0x2800000,0x2000000:boot.img;
 flash=mmc,0:modules:ext4:0x4900000,0x2000000:modules.img;
-flash=mmc,0:modules_ota:ext4:0x7000000,0x2000000:modules.img;
-flash=mmc,0:rootfs:ext4:0x9100000,0:rootfs.img;
+flash=mmc,0:modules_ota:ext4:0x6A00000,0x2000000:modules.img;
+flash=mmc,0:rootfs:ext4:0x8B00000,0:rootfs.img;
