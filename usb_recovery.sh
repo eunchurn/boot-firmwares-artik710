@@ -35,6 +35,12 @@ if [ "${BOARD_NAME}" == "artik710" ]; then
 	BL2=fip-loader-usb.img
 	DOWN_ADDR=0x7fc00000;
 	JUMP_ADDR=0x7fe00000;
+elif [ "${BOARD_NAME}" == "artik530"  ]; then
+	NSIH=nsih-artik530.txt
+	BL1=bl1-usbboot.img
+	BL2=loader-usb.img
+	DOWN_ADDR=0x91000000;
+	JUMP_ADDR=0x91000000;
 else
 	echo "Unsupported Board Type !"
 	echo "Board Type : artik710, artik530"
@@ -43,4 +49,4 @@ fi
 
 ./usb-downloader -t slsiap -n ${NSIH} -b ${BL1}
 sleep 1
-./usb-downloader -t slsiap -m -f ${BL2} -a ${DOWN_ADDR} -j ${JUMP_ADDR}
+./usb-downloader -t slsiap -f ${BL2} -a ${DOWN_ADDR} -j ${JUMP_ADDR}
