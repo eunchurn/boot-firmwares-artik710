@@ -30,7 +30,7 @@ if [ "${BOARD_NAME}" == "" ]; then
 fi
 
 if [ "${BOARD_NAME}" == "artik710" ]; then
-	NSIH=raptor-32.txt
+	NSIH=nsih-artik710.txt
 	BL1=bl1-usbboot.img
 	BL2=fip-loader-usb.img
 	DOWN_ADDR=0x7fc00000;
