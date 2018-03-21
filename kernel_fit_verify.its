@@ -1,0 +1,131 @@
+/dts-v1/;
+
+/ {
+	description = "Linux kernel and FDT blob for ARTIK-710";
+	#address-cells = <1>;
+
+	images {
+		kernel {
+			description = "Linux kernel for ARTIK-710";
+			data = /incbin/("./Image");
+			type = "kernel";
+			arch = "arm64";
+			os = "linux";
+			compression = "none";
+			load = <0x40080000>;
+			entry = <0x40080000>;
+			hash {
+				algo = "sha1";
+			};
+			signature {
+				required = "image";
+				algo = "sha1,rsa2048";
+				key-name-hint = "dev";
+			};
+		};
+		ramdisk {
+			description = "ramdisk";
+			data = /incbin/("./initrd.gz");
+			type = "ramdisk";
+			arch = "arm64";
+			os = "linux";
+			compression = "gzip";
+			load = <0x49000000>;
+			hash {
+				algo = "sha1";
+			};
+			signature {
+				required = "image";
+				algo = "sha1,rsa2048";
+				key-name-hint = "dev";
+			};
+		};
+		fdt-rev00 {
+			description = "FDT blob for artik710 rev00";
+			data = /incbin/("./s5p6818-artik710-raptor-rev00.dtb");
+			type = "flat_dt";
+			arch = "arm64";
+			compression = "none";
+			load = <0x4a000000>;
+			hash {
+				algo = "sha1";
+			};
+			signature {
+				required = "image";
+				algo = "sha1,rsa2048";
+				key-name-hint = "dev";
+			};
+		};
+		fdt-rev01 {
+			description = "FDT blob for artik710 rev01";
+			data = /incbin/("./s5p6818-artik710-raptor-rev01.dtb");
+			type = "flat_dt";
+			arch = "arm64";
+			compression = "none";
+			load = <0x4a000000>;
+			hash {
+				algo = "sha1";
+			};
+			signature {
+				required = "image";
+				algo = "sha1,rsa2048";
+				key-name-hint = "dev";
+			};
+		};
+		fdt-rev03 {
+			description = "FDT blob for artik710 rev03";
+			data = /incbin/("./s5p6818-artik710-raptor-rev03.dtb");
+			type = "flat_dt";
+			arch = "arm64";
+			compression = "none";
+			load = <0x4a000000>;
+			hash {
+				algo = "sha1";
+			};
+			signature {
+				required = "image";
+				algo = "sha1,rsa2048";
+				key-name-hint = "dev";
+			};
+		};
+	};
+	configurations {
+		default = "rev03";
+		rev00 {
+			description = "Boot Linux kernel with FDT blob";
+			kernel = "kernel";
+			ramdisk = "ramdisk";
+			fdt = "fdt-rev00";
+			signature {
+				required = "image";
+				algo = "sha1,rsa2048";
+				key-name-hint = "dev";
+				sign-images = "fdt", "kernel", "ramdisk";
+			};
+		};
+		rev01 {
+			description = "Boot Linux kernel with FDT blob";
+			kernel = "kernel";
+			ramdisk = "ramdisk";
+			fdt = "fdt-rev01";
+			signature {
+				required = "image";
+				algo = "sha1,rsa2048";
+				key-name-hint = "dev";
+				sign-images = "fdt", "kernel", "ramdisk";
+			};
+		};
+		rev03 {
+			description = "Boot Linux kernel with FDT blob";
+			kernel = "kernel";
+			ramdisk = "ramdisk";
+			fdt = "fdt-rev03";
+			signature {
+				required = "image";
+				algo = "sha1,rsa2048";
+				key-name-hint = "dev";
+				sign-images = "fdt", "kernel", "ramdisk";
+			};
+		};
+	};
+};
